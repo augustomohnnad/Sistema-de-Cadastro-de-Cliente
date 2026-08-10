@@ -1,3 +1,5 @@
+const ValidationClient = require('../validations/Validetion_clients')
+
 class clientController {
     constructor(customer){
         this.customer = customer;
@@ -8,6 +10,9 @@ class clientController {
         try {
             const {name_clients, email, nif} = req.body;
             
+            //Função para validar os dados que vem do body
+            ValidationClient(name_clients, email, nif)
+
             await this.customer.insertDatabase(name_clients, email, nif);
             return res.status(201).json(`${name_clients} Registered successfully!`);
 
