@@ -25,13 +25,15 @@ class clientModel {
 
     selectAllDatabase = async () => {
         const sql = `SELECT *FROM clients`
+        const [clientAll] = await this.database.exec(sql)
 
-        return this.database.exec(sql)
+        return clientAll[0]
     };
 
     selectSingleDatabase = async (id) => {
         const sql = `SELECT *FROM clients WHERE id = ?`
-        return await this.database.exec(sql, [id])
+        const [rows] = await this.database.exec(sql, [id])
+        return rows
     }
 
     deleteClientDatabase = async (id) => {
